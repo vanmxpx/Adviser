@@ -5,6 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FoodcostComponent } from './Components/foodcost/foodcost.component';
 import { PurchasesComponent } from './Components/purchases/purchases.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {
+  MatListModule,
+  MatMenuModule,
+  MatButtonModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -14,7 +20,13 @@ import { PurchasesComponent } from './Components/purchases/purchases.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatListModule,
+    MatMenuModule,
+    MatButtonModule
+  ],
+  exports: [
+
   ],
   providers: [],
   bootstrap: [AppComponent]
