@@ -67,8 +67,8 @@ namespace Server
                 }
             });
 
-            var bot = new Bot();
-            bot.RunBot();
+            // var bot = new Bot();
+            // bot.RunBot();
         }
     }
 }
