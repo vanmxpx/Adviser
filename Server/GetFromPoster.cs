@@ -3,128 +3,113 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace GetFromPoster
 {
-    class GetFromPoster
+    public class GetFromPoster
     {
         static HttpClient client = new HttpClient();
-
         //получить поставщики
-        static async Task<string> GetSuppliersAsync()
+        public static async Task<IActionResult> GetSuppliersAsync()
         {
             HttpResponseMessage response = await client.GetAsync(
                  @"https://hackathon.joinposter.com/api/storage.getSuppliers?format=json&token=003643154d8e4a5e7e2d65389376a788"
             );
             response.EnsureSuccessStatusCode();
 
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.SerializeObject(responseBody);
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
         }
 
         //ингредиенты в поставке
-        static async Task<string> GetSupplyIngredientsAsync()
+        public static async Task<IActionResult> GetSupplyIngredientsAsync(int id)
         {
             HttpResponseMessage response = await client.GetAsync(
-                 @"https://hackathon.joinposter.com/api/storage.getSupplyIngredients?format=json&token=003643154d8e4a5e7e2d65389376a788"
+                 @"https://hackathon.joinposter.com/api/storage.getSupplyIngredients?format=json&token=003643154d8e4a5e7e2d65389376a788&supply_id=" + id
             );
             response.EnsureSuccessStatusCode();
 
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.SerializeObject(responseBody);
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
         }
         //получить поставки
-        static async Task<string> GetSuppliesAsync()
+        public static async Task<IActionResult> GetSuppliesAsync()
         {
             HttpResponseMessage response = await client.GetAsync(
                  @"https://hackathon.joinposter.com/api/storage.getSupplies?format=json&token=003643154d8e4a5e7e2d65389376a788"
             );
             response.EnsureSuccessStatusCode();
 
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.SerializeObject(responseBody);
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
         }
         //получить остатки на складе
-        static async Task<string> GetStorageLeftovers()
+        public static async Task<IActionResult> GetStorageLeftovers()
         {
             HttpResponseMessage response = await client.GetAsync(
                  @"https://hackathon.joinposter.com/api/storage.getStorageLeftovers?format=json&token=003643154d8e4a5e7e2d65389376a788"
             );
             response.EnsureSuccessStatusCode();
 
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.SerializeObject(responseBody);
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
         }
 
         //ручныие списания
-        static async Task<string> GetIngredientWriteOff()
+        public static async Task<IActionResult> GetIngredientWriteOff()
         {
             HttpResponseMessage response = await client.GetAsync(
                  @"https://hackathon.joinposter.com/api/storage.getIngredientWriteOff?format=json&token=003643154d8e4a5e7e2d65389376a788"
             );
             response.EnsureSuccessStatusCode();
 
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.SerializeObject(responseBody); return response.Content;
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
         }
 
         //МЕНЮ
         //ингредиенты
-        static async Task<string> GetIngredients()
+        public static async Task<IActionResult> GetIngredients()
         {
             HttpResponseMessage response = await client.GetAsync(
                  @"https://hackathon.joinposter.com/api/menu.getIngredients?format=json&token=003643154d8e4a5e7e2d65389376a788"
             );
             response.EnsureSuccessStatusCode();
 
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.SerializeObject(responseBody);
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
         }
         //получить ингредиент
-        static async Task<string> GetIngredient(int IngredientId)
+        public static async Task<IActionResult> GetIngredient(int IngredientId)
         {
             HttpResponseMessage response = await client.GetAsync(
-                 @"https://hackathon.joinposter.com/api/menu.getIngredient?format=json&token=003643154d8e4a5e7e2d65389376a788
-                 &ingredient_id=" + IngredientId
+                 @"https://hackathon.joinposter.com/api/menu.getIngredient?format=json&token=003643154d8e4a5e7e2d65389376a788&ingredient_id=" + IngredientId
             );
             response.EnsureSuccessStatusCode();
 
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.SerializeObject(responseBody);
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
         }
         // продукты
-        static async Task<string> GetProducts()
+        public static async Task<IActionResult> GetProducts()
         {
             HttpResponseMessage response = await client.GetAsync(
                  @"https://hackathon.joinposter.com/api/menu.getProducts?format=json&token=003643154d8e4a5e7e2d65389376a788"
             );
             response.EnsureSuccessStatusCode();
-
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.SerializeObject(responseBody);
+            
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
+          
         }
         // продукт
-        static async Task<string> GetProduct(int productId)
+        public static async Task<IActionResult> GetProduct(int productId)
         {
+            string path = @"https://hackathon.joinposter.com/api/menu.getProduct?format=json&token=003643154d8e4a5e7e2d65389376a788&product_id=" + productId;
+
             HttpResponseMessage response = await client.GetAsync(
-                 @"https://hackathon.joinposter.com/api/menu.getProduct?format=json&token=003643154d8e4a5e7e2d65389376a788
-                 &product_id=" + productId
+                 @"https://hackathon.joinposter.com/api/menu.getProduct?format=json&token=003643154d8e4a5e7e2d65389376a788&product_id=" + productId
             );
             response.EnsureSuccessStatusCode();
 
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.SerializeObject(responseBody);
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
         }
+
+
     }
 
 }
