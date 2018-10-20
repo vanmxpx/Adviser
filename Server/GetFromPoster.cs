@@ -71,7 +71,7 @@ namespace GetFromPoster
 
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            return JsonConvert.SerializeObject(responseBody); return response.Content;
+            return JsonConvert.SerializeObject(responseBody);
         }
 
         //МЕНЮ
