@@ -25,7 +25,7 @@ namespace Server
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "../Client/Client/dist";
+                configuration.RootPath = "./Client/dist";
             });
         }
 
@@ -58,7 +58,7 @@ namespace Server
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "../Client/Client/";
+                spa.Options.SourcePath = "./Client/";
 
                 if (env.IsDevelopment())
                 {
