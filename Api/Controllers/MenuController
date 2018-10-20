@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Api.GetFromPoster;
+
+namespace Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MenuController : ControllerBase
+    {
+        //поставщики
+        [HttpGet("suppliers")]
+        public void GetSuppliers()
+        {
+            return GetFromPoster.GetSuppliersAsync();
+        }
+        //ингредиенты в поставках
+        [HttpGet("supply-ingredients")]
+        public void GetSuppliers()
+        {
+            return GetFromPoster.GetSuppliersAsync();
+        }
+        //поставки
+        [HttpGet("supplies")]
+        public void GetSuppliesAsync()
+        {
+            return GetFromPoster.GetSuppliersAsync();
+        }
+
+    }
+}
