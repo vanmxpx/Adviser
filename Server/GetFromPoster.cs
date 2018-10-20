@@ -61,7 +61,13 @@ namespace GetFromPoster
             );
             response.EnsureSuccessStatusCode();
 
+<<<<<<< HEAD
             return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
+=======
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.SerializeObject(responseBody);// return response.Content;
+>>>>>>> e35ab93e65f3b467e57e2bfecb349cd14045a219
         }
 
         //МЕНЮ

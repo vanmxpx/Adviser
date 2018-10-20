@@ -1,4 +1,6 @@
 {
     "azureFunctions.projectLanguage": "C#",
-    "azureFunctions.projectRuntime": "~2"
+    "azureFunctions.projectRuntime": "~2",
+    "appService.defaultWebAppToDeploy": "/subscriptions/2db76b25-eb7e-49b3-8bbf-862bbd6346a3/resourceGroups/posAnalitycs/providers/Microsoft.Web/sites/posAnalitycs",
+    "appService.deploySubpath": "bin\\Debug\\netcoreapp2.1\\publish"
 }
