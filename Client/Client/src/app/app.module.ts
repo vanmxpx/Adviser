@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FoodcostComponent } from './Components/foodcost/foodcost.component';
 import { PurchasesComponent } from './Components/purchases/purchases.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatListModule,
   MatMenuModule,
-  MatButtonModule
+  MatButtonModule,
+  MatIconModule,
+  MatListModule,
+  MatCardModule
 } from '@angular/material';
 
 @NgModule({
@@ -19,11 +21,14 @@ import {
     PurchasesComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     MatListModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
   ],
   exports: [
 

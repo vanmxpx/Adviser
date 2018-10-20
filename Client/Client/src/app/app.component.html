@@ -1,12 +1,30 @@
-<div class= "main-container">
-  <div class="menu">
-        <mat-list role="list">
-                <mat-list-item role="listitem">Action 1</mat-list-item>
-                <mat-list-item role="listitem">Action 2</mat-list-item>
-                <mat-list-item role="listitem">Settings</mat-list-item>
-              </mat-list>
-  </div>
-  <div class = "content">
-      <router-outlet></router-outlet>
+<div class="main-container">
+    <div class="menu">
+        <mat-card>
+            <mat-list role="list">
+                <mat-list-item role="listitem">
+                    <button mat-button>
+                            <mat-icon>change_history</mat-icon>
+                            Action 1
+                    </button>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                        <button mat-button>
+                                <mat-icon>change_history</mat-icon>
+                                Action 2
+                        </button>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                        <button mat-button>
+                                <mat-icon>settings</mat-icon>
+                                Settings
+                        </button>
+                </mat-list-item>
+            </mat-list>
+        </mat-card>
+
+    </div>
+    <div class="content">
+        <router-outlet></router-outlet>
     </div>
 </div>
