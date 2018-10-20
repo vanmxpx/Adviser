@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
+using System.ComponentModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Telegram.Bot;
 
-namespace Server
+namespace PosterStaBot
 {
     public class Startup
     {
@@ -26,6 +24,12 @@ namespace Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,11 +41,88 @@ namespace Server
             }
             else
             {
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
+            });
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
+            RunBot();
+        }
+
+        BackgroundWorker bw;
+
+        public void RunBot()
+        {
+            this.bw = new BackgroundWorker();
+			this.bw.DoWork += this.bw_DoWork; // метод bw_DoWork будет работать асинхронно
+            
+            //var Bot = new TelegramBotClient("lljlk");
+            if (this.bw.IsBusy != true)
+		    {
+		        this.bw.RunWorkerAsync("655832225:AAE_iUdaiN_Al9ZIWFUmBEnqgwroMtZGe5Y"); // передаем эту переменную в виде аргумента методу bw_DoWork
+		    }
+        }
+
+        async void bw_DoWork(object sender, DoWorkEventArgs e)
+		{
+			var worker = sender as BackgroundWorker;
+			var key = e.Argument as String; // получаем ключ из аргументов
+            try
+            {
+                var Bot = new Telegram.Bot.TelegramBotClient(key); // инициализируем API
+                await Bot.SetWebhookAsync("");
+                //Bot.SetWebhook(""); // Обязательно! убираем старую привязку к вебхуку для бота
+                int offset = 0; // отступ по сообщениям
+                while (true)
+                {
+                    var updates = await Bot.GetUpdatesAsync(offset); // получаем массив обновлений
+                    
+                    foreach(var update in updates) // Перебираем все обновления
+                    {
+                        	var message = update.Message;
+                            if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
+                            {
+                                await Bot.SendTextMessageAsync(message.Chat.Id, "тест",
+                                        replyToMessageId: message.MessageId);
+                                // if (message.Text == "/saysomething")
+                                // {
+                                //     // в ответ на команду /saysomething выводим сообщение
+                                //     await Bot.SendTextMessageAsync(message.Chat.Id, "тест",
+                                //         replyToMessageId: message.MessageId);
+                                // }
+                            }
+                            offset = update.Id + 1;
+                    }
+
+                }
+            }
+            catch (Telegram.Bot.Exceptions.ApiRequestException ex)
+            {
+                Console.WriteLine(ex.Message); // если ключ не подошел - пишем об этом в консоль отладки
+            }
+
         }
     }
 }
