@@ -95,8 +95,8 @@ namespace PosterStaBot
                         }
                         if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
                         {
-                            await bot.SendTextMessageAsync(message.Chat.Id, "тест",
-                                    replyToMessageId: message.MessageId);
+                            // await bot.SendTextMessageAsync(message.Chat.Id, "тест",
+                            //         replyToMessageId: message.MessageId);
                             // if (message.Text == "/saysomething")
                             // {
                             //     // в ответ на команду /saysomething выводим сообщение
