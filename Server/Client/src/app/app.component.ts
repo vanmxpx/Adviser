@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Alert } from 'selenium-webdriver';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,17 @@ import { Alert } from 'selenium-webdriver';
 })
 export class AppComponent {
   title = 'Client';
-  OnClick(name: string) {
-    alert(name);
+
+  constructor(private router: Router) {
+
+  }
+  ButtonFoodCostClick() {
+    this.router.navigate(['./foodcost']);
+  }
+  ButtonPurchasesClick() {
+    this.router.navigate(['./purchases']);
+  }
+  ButtonSettingsClick() {
+    this.router.navigate(['./foodcost']);
   }
 }
