@@ -1,7 +1,30 @@
-<div>
-  <div>
-  </div>
-  <div>
+<div class="main-container">
+    <div class="menu">
+        <mat-card>
+            <mat-list role="list">
+                <mat-list-item role="listitem">
+                    <button mat-button name="ButtonAction1" (click)= "OnClick(this.name)">
+                            <mat-icon>change_history</mat-icon>
+                            Action 1
+                    </button>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                        <button mat-button>
+                                <mat-icon>change_history</mat-icon>
+                                Action 2
+                        </button>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                        <button mat-button>
+                                <mat-icon>settings</mat-icon>
+                                Settings
+                        </button>
+                </mat-list-item>
+            </mat-list>
+        </mat-card>
+
+    </div>
+    <div class="content">
+        <router-outlet></router-outlet>
     </div>
 </div>
-<router-outlet></router-outlet>

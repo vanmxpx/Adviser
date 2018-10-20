@@ -5,6 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FoodcostComponent } from './Components/foodcost/foodcost.component';
 import { PurchasesComponent } from './Components/purchases/purchases.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  MatMenuModule,
+  MatButtonModule,
+  MatIconModule,
+  MatListModule,
+  MatCardModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -13,8 +21,17 @@ import { PurchasesComponent } from './Components/purchases/purchases.component';
     PurchasesComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatListModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
+  ],
+  exports: [
+
   ],
   providers: [],
   bootstrap: [AppComponent]

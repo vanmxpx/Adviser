@@ -1,3 +1,18 @@
-.mainContainer{
+@import "../assets/variables";
+
+.main-container{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
     
+
+}
+
+.menu{
+    .mat-card{
+        padding: 0px;
+    }
+}
+.mainContainer .content{
+
 }
