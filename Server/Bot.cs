@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using Telegram.Bot;
 
 namespace PosterStaBot
 {
@@ -30,20 +31,71 @@ namespace PosterStaBot
             var key = e.Argument as String; // получаем ключ из аргументов
             try
             {
-                var Bot = new Telegram.Bot.TelegramBotClient(key); // инициализируем API
-                await Bot.SetWebhookAsync("");
+                var bot = new TelegramBotClient(key); // инициализируем API
+                var me = bot.GetMeAsync().Result;
+                await bot.SetWebhookAsync("");
                 //Bot.SetWebhook(""); // Обязательно! убираем старую привязку к вебхуку для бота
                 int offset = 0; // отступ по сообщениям
                 while (true)
                 {
-                    var updates = await Bot.GetUpdatesAsync(offset); // получаем массив обновлений
+                    var updates = await bot.GetUpdatesAsync(offset); // получаем массив обновлений
 
                     foreach (var update in updates) // Перебираем все обновления
                     {
                         var message = update.Message;
+                        // reply buttons
+                        if (message.Text == "/start")
+                        {
+                            var keyboard = new Telegram.Bot.Types.ReplyMarkups.ReplyKeyboardMarkup
+                            {
+                                Keyboard = new[] {
+                                                new[] // row 1
+                                                {
+                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Выборка"),
+                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Фудкост"),
+                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Настройки"),
+                                                },
+                                            },
+                                ResizeKeyboard = true
+                            };
+                            await bot.SendTextMessageAsync(message.Chat.Id, "Приветствую в Poster Bot!",
+                             Telegram.Bot.Types.Enums.ParseMode.Default, false, false, 0, keyboard);
+                        }
+                         // inline buttons
+                        // if (message.Text == "/ibuttons")
+                        // {
+                        //     var b = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton();
+                        //     var keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(
+                        //                             new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton[][]
+                        //                             {
+                        //                                     // First row
+                        //                                     new [] {
+                        //                                         // First column
+                        //                                         new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton(),
+
+                        //                                         // Second column
+                        //                                         new Telegram.Bot.Types.InlineKeyboardButton("два","callback2"),
+                        //                                     },
+                        //                             }
+                        //                         );
+
+                        //     await Bot.SendTextMessageAsync(message.Chat.Id, "Давай накатим, товарищ, по одной!", false, false, 0, keyboard, Telegram.Bot.Types.Enums.ParseMode.Default);
+                        // }
+                        if (message.Text.ToLower() == "выборка")
+                        {
+                            await bot.SendTextMessageAsync(message.Chat.Id, "У нас есть вот такой бот. Это он. Тот самый. Ну, который вам нужен", replyToMessageId: message.MessageId);
+                        }
+                        if (message.Text.ToLower() == "фудкост")
+                        {
+                            await bot.SendTextMessageAsync(message.Chat.Id, "У нас есть вот такой бот. Это он. Тот самый. Ну, который вам нужен", replyToMessageId: message.MessageId);
+                        }
+                        if (message.Text.ToLower() == "настройки")
+                        {
+                            await bot.SendTextMessageAsync(message.Chat.Id, "У нас есть вот такой бот. Это он. Тот самый. Ну, который вам нужен", replyToMessageId: message.MessageId);
+                        }
                         if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
                         {
-                            await Bot.SendTextMessageAsync(message.Chat.Id, "тест",
+                            await bot.SendTextMessageAsync(message.Chat.Id, "тест",
                                     replyToMessageId: message.MessageId);
                             // if (message.Text == "/saysomething")
                             // {
