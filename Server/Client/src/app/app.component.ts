@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Alert } from 'selenium-webdriver';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,15 @@ import { Alert } from 'selenium-webdriver';
 })
 export class AppComponent {
   title = 'Client';
+
+  constructor(private router: Router) {
+
+  }
   OnClick(name: string) {
-    alert(name);
+    switch (name) {
+      case ('ButtonSettings'): {
+        this.router.navigate(['./foodcost']);
+      }
+    }
   }
 }
