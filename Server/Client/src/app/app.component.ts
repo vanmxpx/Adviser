@@ -13,11 +13,13 @@ export class AppComponent {
   constructor(private router: Router) {
 
   }
-  OnClick(name: string) {
-    switch (name) {
-      case ('ButtonSettings'): {
-        this.router.navigate(['./foodcost']);
-      }
-    }
+  ButtonFoodCostClick() {
+    this.router.navigate(['./foodcost']);
+  }
+  ButtonPurchasesClick() {
+    this.router.navigate(['./purchases']);
+  }
+  ButtonSettingsClick() {
+    this.router.navigate(['./foodcost']);
   }
 }
