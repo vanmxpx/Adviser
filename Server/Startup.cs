@@ -66,7 +66,9 @@ namespace Server
                     // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
+
+            var bot = new Bot();
+            bot.RunBot();
         }
     }
 }
-
