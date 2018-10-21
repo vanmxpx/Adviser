@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit , ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit , ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Chart } from 'chart.js';
 
 
@@ -11,28 +11,38 @@ export class DynamicChartComponent implements OnInit, AfterViewInit {
   @ViewChild('canvas') canvas: ElementRef;
   panelOpenState = false;
   chart = [];
-    labels: any = ['aaa'];
+    labels: any = ['Jun', 'July', 'Aug', 'Sep'];
 
-    data = [];
+    data = [0, 44, 81, -32];
 
-    constructor() { }
+    constructor(private ref: ChangeDetectorRef) { }
 
     ngOnInit() {
 this.data.push(12);
     }
     ngAfterViewInit() {
         this.chart = new Chart(this.canvas.nativeElement.getContext('2d'), {
-            type: 'bar',
+            type: 'line',
             labels: this.labels,
             data: {
                 labels: this.labels,
-                data: this.data
+                datasets: [
+                    {
+                      data: this.data,
+                      borderColor: "#3cba9f",
+                      fill: false
+                    }
+                ]
             },
             options: {
-                responsive: true
+                responsive: true,
+                
+                    legend: {
+                      display: false
+                    },
             }
         });
-
+        this.ref.detectChanges();
     }
 
 }
