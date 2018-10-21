@@ -8,6 +8,7 @@ import { PurchasesComponent } from './Components/purchases/purchases.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatMenuModule,
+  MatExpansionModule,
   MatButtonModule,
   MatIconModule,
   MatListModule,
