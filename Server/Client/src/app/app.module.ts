@@ -14,13 +14,15 @@ import {
   MatCardModule
 } from '@angular/material';
 import { DynamicChartComponent } from './Components/purchases/dynamic-chart/dynamic-chart.component';
+import { SettingsComponent } from './Components/settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FoodcostComponent,
     PurchasesComponent,
-    DynamicChartComponent
+    DynamicChartComponent,
+    SettingsComponent
   ],
   imports: [
     FormsModule,
