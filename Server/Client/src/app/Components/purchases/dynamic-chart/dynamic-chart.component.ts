@@ -11,7 +11,7 @@ export class DynamicChartComponent implements OnInit {
 
   public Canvas = document.getElementById('canvas');
   public myChart: Chart;
-  ngOnInit() {    
+  ngOnInit() {
     this.myChart = new Chart(this.Canvas, {
       type: 'bar',
       data: {
