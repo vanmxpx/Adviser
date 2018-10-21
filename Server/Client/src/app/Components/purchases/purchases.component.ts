@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { DeltaProduct } from '../../Models/deltaProduct';
 import { DeltaProductService } from '../../Services/delta-product.service';
 
@@ -15,7 +15,7 @@ export class DeltaProductSetup {
 })
 
 
-export class PurchasesComponent implements OnInit {
+export class PurchasesComponent implements OnInit, AfterContentInit {
   Setup: DeltaProductSetup[] = [];
 
 
@@ -24,14 +24,18 @@ export class PurchasesComponent implements OnInit {
 
   }
   ngOnInit() {
+  }
+
+  ngAfterContentInit() {
     this.GetSetupProduct();
   }
   GetSetupProduct() {
     const res = this.deltaProductService.GetDeltaProduct()
-    .then(res =>
-    res.forEach(item => {
-      this.Setup.push(item);
-    }));
+      // tslint:disable-next-line:no-shadowed-variable
+      .then(res =>
+        res.forEach(item => {
+          this.Setup.push(item);
+        }));
   }
 }
 

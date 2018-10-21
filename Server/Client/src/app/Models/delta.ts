@@ -1,5 +1,5 @@
 export class Delta {
-supplies: string;
+supplies: number;
 wastes: number;
 inventory: number;
 sales: number;
