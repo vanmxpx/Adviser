@@ -13,28 +13,27 @@ namespace Server.Controllers
     {
         //поставщики       
         [HttpGet("suppliers")]
-        public ActionResult<string> GetSuppliers()
+        public Task<IActionResult> GetSuppliers()
         {            
-            return "7";
-            //return GetFromPoster.GetSuppliersAsync();
+            return GetFromPoster.GetFromPoster.GetSuppliersAsync();            
         }
         //ингредиенты в поставках
-        [HttpGet("supply-ingredients")]
-        public void GetSupplyIngredients()
+        [HttpGet("supply-ingredients/{id}")]
+        public Task<IActionResult> GetSupplyIngredients([FromRoute] int id)
         {
-            //return GetFromPoster.GetSupplyIngredientsAsync();
+            return GetFromPoster.GetFromPoster.GetSupplyIngredientsAsync(id);
         }
         //поставки
         [HttpGet("supplies")]
-        public void GetSuppliesAsync()
+        public Task<IActionResult> GetSuppliesAsync()
         {
-            //return GetFromPoster.GetSuppliersAsync();
+            return GetFromPoster.GetFromPoster.GetSuppliersAsync();
         }
         //остатки на складе        
         [HttpGet("storage-leftovers")]
-        public void GetStorageLeftovers()
+        public Task<IActionResult> GetStorageLeftovers()
         {
-           // return GetFromPoster.GetStorageLeftovers();
+           return GetFromPoster.GetFromPoster.GetStorageLeftovers();
         }
     }
 }
