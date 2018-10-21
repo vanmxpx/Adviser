@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { FoodcostComponent } from './Components/foodcost/foodcost.component';
 import { PurchasesComponent } from './Components/purchases/purchases.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   MatTableModule,
   MatMenuModule,
@@ -20,6 +21,7 @@ import {
 } from '@angular/material';
 import { DynamicChartComponent } from './Components/purchases/dynamic-chart/dynamic-chart.component';
 import { SettingsComponent } from './Components/settings/settings.component';
+import { DaterpickerRangeComponent } from './Components/purchases/daterpicker-range/daterpicker-range.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { SettingsComponent } from './Components/settings/settings.component';
     FoodcostComponent,
     PurchasesComponent,
     DynamicChartComponent,
-    SettingsComponent
+    SettingsComponent,
+    DaterpickerRangeComponent
   ],
   imports: [
     HttpClientModule,
@@ -42,7 +45,8 @@ import { SettingsComponent } from './Components/settings/settings.component';
     MatButtonModule,
     MatIconModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    NgbModule
   ],
   exports: [
 
