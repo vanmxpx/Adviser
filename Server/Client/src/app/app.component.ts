@@ -20,6 +20,6 @@ export class AppComponent {
     this.router.navigate(['./purchases']);
   }
   ButtonSettingsClick() {
-    this.router.navigate(['./foodcost']);
+    this.router.navigate(['./settings']);
   }
 }

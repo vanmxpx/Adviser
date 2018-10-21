@@ -1,5 +1,6 @@
 export class Product {
-
-    name:string;
-    unit: string;
+    output: number;
+    cost: number;
+    profit: number;
+    price: number;
 }

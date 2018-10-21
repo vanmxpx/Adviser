@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { FoodcostComponent } from './Components/foodcost/foodcost.component';
 import { PurchasesComponent } from './Components/purchases/purchases.component';
 import { AppComponent } from './app.component';
+import { SettingsComponent } from './Components/settings/settings.component';
+
 
 
 

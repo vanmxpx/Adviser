@@ -8,6 +8,7 @@ import { FoodcostComponent } from './Components/foodcost/foodcost.component';
 import { PurchasesComponent } from './Components/purchases/purchases.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
+  MatTableModule,
   MatMenuModule,
   MatExpansionModule,
   MatButtonModule,
@@ -18,17 +19,20 @@ import {
   MatCardModule
 } from '@angular/material';
 import { DynamicChartComponent } from './Components/purchases/dynamic-chart/dynamic-chart.component';
+import { SettingsComponent } from './Components/settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FoodcostComponent,
     PurchasesComponent,
-    DynamicChartComponent
+    DynamicChartComponent,
+    SettingsComponent
   ],
   imports: [
     HttpClientModule,
     FormsModule,
+    MatTableModule,
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,

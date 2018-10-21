@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Server.Models;
+using Server.Models.DTO;
 
 namespace Server.Controllers
 {
@@ -14,17 +16,29 @@ namespace Server.Controllers
     {
 
         [Produces("application/json")]
-        [HttpGet("lastMonth")]
-        // получить поставки за последний месяц api/delta/deltaLastMonth
-        public async Task<IActionResult> GetDeltaLastMonth()
+        [HttpGet("")]
+        // получить поставки за последний месяц api/delta/
+        public async Task<IActionResult> GetDelta()
         {  
+            DeltaDTO delta = new DeltaDTO();
             // postavki 
             List<Supply> suppliers = await GetFromPoster.GetFromPoster.GetSuppliesAsync();
-            long totalSuppliers = suppliers.Sum(s => s.supply_sum);
+            long totalSuppliers = suppliers.Where(d => d.delete != 1).Sum(s => s.supply_sum);
+            delta.supplies = totalSuppliers;
             // spisaniya 
             List<Waste> wastes = await GetFromPoster.GetFromPoster.GetWastesAsync();
+            long totalWastes = wastes.Where(d => d.delete != 1).Sum(s => s.total_sum);
+            delta.wastes = totalWastes;
 
-            return Ok(JsonConvert.SerializeObject(suppliers)); 
+            // sales
+
+            List<double> sales = await GetFromPoster.GetFromPoster.GetSalesAsync();
+            double totalSales = sales.Sum(s => s);
+            delta.sales = (long)totalSales;
+
+            delta.delta = delta.supplies - delta.wastes - delta.sales;
+
+            return Ok(JsonConvert.SerializeObject(delta)); 
         }
         [Produces("application/json")]
         [HttpGet("byMonth")]
