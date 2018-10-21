@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Alert } from 'selenium-webdriver';
 import { Router, ActivatedRoute } from '@angular/router';
+import {IngredientService} from '../app/Services/ingredient.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,6 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Client';
 
   constructor(private router: Router) {
 
