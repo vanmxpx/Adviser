@@ -19,9 +19,9 @@ namespace Server.Controllers
         }
         //ингредиенты в поставках
         [HttpGet("supply-ingredients/{id}")]
-        public Task<IActionResult> GetSupplyIngredients([FromRoute] int id)
+        public async Task<IActionResult> GetSupplyIngredients([FromRoute] int id)
         {
-            return GetFromPoster.GetFromPoster.GetSupplyIngredientsAsync(id);
+            return new OkObjectResult(await GetFromPoster.GetFromPoster.GetSupplyIngredientsAsync(id)); 
         }
         //поставки
         [HttpGet("supplies")]

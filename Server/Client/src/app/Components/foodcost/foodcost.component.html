@@ -1,7 +1,7 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>
-      Текила с лаймом 
+      <mat-panel-title >
+          Текила с лаймом
       </mat-panel-title>
     </mat-expansion-panel-header>
       <div class="mat-elevation-z8">
@@ -15,32 +15,95 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <th mat-header-cell *matHeaderCellDef> Ингридиент </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
         <!-- Cost Column -->
         <ng-container matColumnDef="cost">
-          <th mat-header-cell *matHeaderCellDef> Cost </th>
+          <th mat-header-cell *matHeaderCellDef> Себестоимость </th>
           <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="markup">
+            <th mat-header-cell *matHeaderCellDef> Наценка </th>
+            <td mat-cell *matCellDef="let element"> {{element.markup}}% </td>
+          </ng-container>
+
+        <ng-container matColumnDef="foodcost">
+              <th mat-header-cell *matHeaderCellDef> FoodCost </th>
+              <td mat-cell *matCellDef="let element"> {{element.foodcost}}% </td>
+            </ng-container>
+  
         <!-- LeftOvers Column -->
         <ng-container matColumnDef="left_overs">
-          <th mat-header-cell *matHeaderCellDef> Left Overs </th>
+          <th mat-header-cell *matHeaderCellDef> Остаток на складе </th>
           <td mat-cell *matCellDef="let element"> {{element.left_overs}} </td>
         </ng-container>
 
         <!-- Supplier Column -->
         <ng-container matColumnDef="supplier">
-          <th mat-header-cell *matHeaderCellDef> Supplier </th>
+          <th mat-header-cell *matHeaderCellDef> Поставщик </th>
           <td mat-cell *matCellDef="let element"> {{element.supplier}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      
-      </div>
+    </div>
+</mat-expansion-panel>
+<br>
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title >
+         Торт
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+      <div class="mat-elevation-z8">
+       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> № </th>
+          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Ингридиент </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Cost Column -->
+        <ng-container matColumnDef="cost">
+          <th mat-header-cell *matHeaderCellDef> Себестоимость </th>
+          <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="markup">
+            <th mat-header-cell *matHeaderCellDef> Наценка </th>
+            <td mat-cell *matCellDef="let element"> {{element.markup}}% </td>
+          </ng-container>
+
+        <ng-container matColumnDef="foodcost">
+              <th mat-header-cell *matHeaderCellDef> FoodCost </th>
+              <td mat-cell *matCellDef="let element"> {{element.foodcost}}% </td>
+            </ng-container>
   
-  </mat-expansion-panel>
+        <!-- LeftOvers Column -->
+        <ng-container matColumnDef="left_overs">
+          <th mat-header-cell *matHeaderCellDef> Остаток на складе </th>
+          <td mat-cell *matCellDef="let element"> {{element.left_overs}} </td>
+        </ng-container>
+
+        <!-- Supplier Column -->
+        <ng-container matColumnDef="supplier">
+          <th mat-header-cell *matHeaderCellDef> Поставщик </th>
+          <td mat-cell *matCellDef="let element"> {{element.supplier}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+</mat-expansion-panel>
