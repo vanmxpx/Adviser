@@ -35,7 +35,7 @@ namespace Server.Controllers
             List<double> sales = await GetFromPoster.GetFromPoster.GetSalesAsync();
             double totalSales = sales.Sum(s => s);
             delta.sales = (long)totalSales;
-
+            delta.product = "All";
             delta.delta = delta.supplies - delta.wastes - delta.sales;
 
             return Ok(JsonConvert.SerializeObject(delta)); 
@@ -56,13 +56,13 @@ namespace Server.Controllers
             List<Waste> wastes = await GetFromPoster.GetFromPoster.GetWastesByMonthAsync(date);
             long totalWastes = wastes.Where(d => d.delete != 1).Sum(s => s.total_sum);
             delta.wastes = totalWastes;
-
+            
             // sales
 
             List<double> sales = await GetFromPoster.GetFromPoster.GetSalesByMonthAsync(date);
             double totalSales = sales.Sum(s => s);
             delta.sales = (long)totalSales;
-
+            delta.product = "All";
             delta.delta = delta.supplies - delta.wastes - delta.sales;
 
             return Ok(JsonConvert.SerializeObject(delta));
