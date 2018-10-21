@@ -1,1 +1,31 @@
+<mat-card class="main-content">
+  <mat-card class="header">
+    <div>Название</div>
+    <div>Поставка</div>
+    <div>Считание</div>
+    <div>Инвентаризация</div>
+    <div>Продажа</div>
+    <div>Delta</div>
+    <div>Остаток</div>
+  </mat-card>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let item of Setup">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            <div>{{item.CurrentMonth.Name}}</div>
+            <div>{{item.CurrentMonth.SupplySum}}/{{item.LastMonth.SupplySum}}</div>
+            <div>{{item.CurrentMonth.WastedSum}}/{{item.LastMonth.WastedSum}}</div>
+            <div>{{item.CurrentMonth.InventorySum}}/{{item.LastMonth.InventorySum}}</div>
+            <div>{{item.CurrentMonth.Sales}}/{{item.LastMonth.Sales}}</div>
+            <div>{{item.CurrentMonth.Delta}}/{{item.LastMonth.Delta}}</div>
+            <div>{{item.CurrentMonth.Leftovers}}/{{item.LastMonth.Leftovers}}</div>
+              
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>Hello</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>
+
+
 <app-dynamic-chart></app-dynamic-chart>
