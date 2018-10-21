@@ -70,6 +70,17 @@ namespace GetFromPoster
             return res.response.data;
         }
 
+        public static async Task<WasteDetails> GetWasteDetailsAsync(int wasteId)
+        {
+            HttpResponseMessage response = await client.GetAsync(
+                 @"https://hackathon.joinposter.com/api/storage.getWaste?format=json&token=003643154d8e4a5e7e2d65389376a788&waste_id="+wasteId.ToString()
+            );
+            response.EnsureSuccessStatusCode();
+            var resString = await response.Content.ReadAsStringAsync();
+            var res = JsonConvert.DeserializeObject<Response<WasteDetails>>(resString);
+            return res.response;
+            //return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
+        }
         //получить остатки на складе
         public static async Task<IActionResult> GetStorageLeftovers()
         {
