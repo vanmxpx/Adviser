@@ -9,6 +9,7 @@ import { Chart } from 'chart.js';
 })
 export class DynamicChartComponent implements OnInit, AfterViewInit {
   @ViewChild('canvas') canvas: ElementRef;
+  panelOpenState = false;
   chart = [];
     labels: any = ['aaa'];
 

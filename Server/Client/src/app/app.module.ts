@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,8 @@ import {
   MatButtonModule,
   MatIconModule,
   MatListModule,
+  MatFormFieldModule,
+  MatInputModule,
   MatCardModule
 } from '@angular/material';
 import { DynamicChartComponent } from './Components/purchases/dynamic-chart/dynamic-chart.component';
@@ -25,12 +28,15 @@ import { DynamicChartComponent } from './Components/purchases/dynamic-chart/dyna
   ],
   imports: [
     FormsModule,
-    BrowserModule,
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MatListModule,
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
+    MatExpansionModule,
     MatCardModule
   ],
   exports: [
