@@ -1,0 +1,22 @@
+.main-content{
+    display: flex;
+    flex-direction: column;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 50px;
+
+    
+}
+::ng-deep .mat-expansion-panel-header-title{
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-evenly !important;
+    text-align: end !important;
+    
+}
+div{
+width: 50px;
+}
