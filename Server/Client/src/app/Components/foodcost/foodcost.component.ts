@@ -10,7 +10,7 @@ import { Ingredient } from 'src/app/Models/ingredient';
 })
 
 export class FoodcostComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'cost', 'supplier', 'left_overs', 'chart'];
+  displayedColumns: string[] = ['position', 'name', 'cost', 'supplier', 'left_overs'];
   dataSource = ELEMENT_DATA;
   constructor() { }
   ngOnInit() {
