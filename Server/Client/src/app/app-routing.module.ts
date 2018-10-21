@@ -11,6 +11,7 @@ import { SettingsComponent } from './Components/settings/settings.component';
 const routes: Routes = [
   {path: 'foodcost', component: FoodcostComponent},
   {path: 'purchases', component: PurchasesComponent},
+  {path: 'settings', component: SettingsComponent},
   {path: '**', component: PurchasesComponent},
 ];
 
