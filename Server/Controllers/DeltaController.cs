@@ -48,5 +48,23 @@ namespace Server.Controllers
 
             return GetFromPoster.GetFromPoster.GetProducts(); 
         }
+
+        [Produces("application/json")]
+        [HttpGet("prodProfit")]
+        // получить профит по продукту  api/delta/prodProfit/168
+        public async Task<IActionResult> GetProdProfit([FromQuery] int id)
+        {  
+            List<double> sales = await GetFromPoster.GetFromPoster.GetSalesByProdAsync(id);
+            List<double> totalSales = new List<double>();
+           for(int i = 0; i < sales.Count; i++ )
+           {
+               if(sales[i] != 0 ) 
+               {
+                   totalSales.Add(sales[i]);
+               }
+           }
+
+            return Ok(JsonConvert.SerializeObject(totalSales)); 
+        }
     }
 }
