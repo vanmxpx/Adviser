@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Formatting;
 using Newtonsoft.Json;
-using Product;
+using Server.Models;
 
 namespace GetFromPoster
 {
@@ -35,14 +36,27 @@ namespace GetFromPoster
             return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
         }
         //получить поставки
-        public static async Task<IActionResult> GetSuppliesAsync()
+        public static async Task<List<Supply>> GetSuppliesAsync()
         {
             HttpResponseMessage response = await client.GetAsync(
                  @"https://hackathon.joinposter.com/api/storage.getSupplies?format=json&token=003643154d8e4a5e7e2d65389376a788"
             );
             response.EnsureSuccessStatusCode();
+            var resString = await response.Content.ReadAsStringAsync();
+            var res = JsonConvert.DeserializeObject<Response<List<Supply>>>(resString);
+            return res.response;
+        }
 
-            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
+        // списания 
+        public static async Task<List<Waste>> GetWastesAsync()
+        {
+            HttpResponseMessage response = await client.GetAsync(
+                 @"https://hackathon.joinposter.com/api/storage.getWastes?format=json&token=003643154d8e4a5e7e2d65389376a788"
+            );
+            response.EnsureSuccessStatusCode();
+            var resString = await response.Content.ReadAsStringAsync();
+            var res = JsonConvert.DeserializeObject<Response<List<Waste>>>(resString);
+            return res.response;
         }
         //получить остатки на складе
         public static async Task<IActionResult> GetStorageLeftovers()
@@ -64,7 +78,7 @@ namespace GetFromPoster
             response.EnsureSuccessStatusCode();
 
             return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
-       }
+        }
 
         //МЕНЮ
         //ингредиенты
