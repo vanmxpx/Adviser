@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FoodcostComponent } from './Components/foodcost/foodcost.component';
-import { PurchasesComponent } from './Components/purchases/purchases.component';
+import { PurchasesComponent, DeltaProductSetup } from './Components/purchases/purchases.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatTableModule,
@@ -26,6 +26,7 @@ import { SettingsComponent } from './Components/settings/settings.component';
     AppComponent,
     FoodcostComponent,
     PurchasesComponent,
+    DeltaProductSetup,
     DynamicChartComponent,
     SettingsComponent
   ],
