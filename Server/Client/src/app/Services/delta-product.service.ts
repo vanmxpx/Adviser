@@ -25,7 +25,7 @@ export class DeltaProductService {
 
     ];
     // tslint:disable-next-line:prefer-const
-    let prod1: DeltaProductSetup;
+    let prod1: DeltaProductSetup = new DeltaProductSetup();
     prod1.CurrentMonth = {
       Name: 'RedBull',
       SupplySum: 100,
@@ -46,7 +46,31 @@ export class DeltaProductService {
       Leftovers: 2,
       LeftoversUnit: 'l'
     };
+
+    let prod2: DeltaProductSetup = new DeltaProductSetup();
+    prod2.CurrentMonth = {
+      Name: 'Coffee',
+      SupplySum: 50,
+      WastedSum: 0,
+      InventorySum: 11,
+      Sales: 100,
+      Delta: 1,
+      Leftovers: 3,
+      LeftoversUnit: 'l'
+    };
+    prod2.LastMonth = {
+      Name: 'Coffee',
+      SupplySum: 34,
+      WastedSum: 2,
+      InventorySum: 23,
+      Sales: 99,
+      Delta: 1,
+      Leftovers: 2,
+      LeftoversUnit: 'l'
+    };
+
 products.push(prod1);
+products.push(prod2);
     return products;
   }
 }

@@ -12,13 +12,13 @@
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let item of Setup">
       <mat-expansion-panel-header>
         <mat-panel-title>
-            <div>{{Setup.CurrentMonth.Name}}</div>
-            <!-- <div>{{item.SupplySum}}</div>
-            <div>{{item.WastedSum}}</div>
-            <div>{{item.InventorySum}}</div>
-            <div>{{item.Sales}}</div>
-            <div>{{item.Delta}}</div>
-            <div>{{item.Leftovers}}</div> -->
+            <div>{{item.CurrentMonth.Name}}</div>
+            <div>{{item.CurrentMonth.SupplySum}}/{{item.LastMonth.SupplySum}}</div>
+            <div>{{item.CurrentMonth.WastedSum}}/{{item.LastMonth.WastedSum}}</div>
+            <div>{{item.CurrentMonth.InventorySum}}/{{item.LastMonth.InventorySum}}</div>
+            <div>{{item.CurrentMonth.Sales}}/{{item.LastMonth.Sales}}</div>
+            <div>{{item.CurrentMonth.Delta}}/{{item.LastMonth.Delta}}</div>
+            <div>{{item.CurrentMonth.Leftovers}}/{{item.LastMonth.Leftovers}}</div>
               
         </mat-panel-title>
       </mat-expansion-panel-header>

@@ -2,17 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { DeltaProduct } from '../../Models/deltaProduct';
 import { DeltaProductService } from '../../Services/delta-product.service';
 
+
+export class DeltaProductSetup {
+  public CurrentMonth: DeltaProduct = null;
+  public LastMonth: DeltaProduct = null;
+}
+
 @Component({
   selector: 'app-purchases',
   templateUrl: './purchases.component.html',
   styleUrls: ['./purchases.component.scss']
 })
 
-// tslint:disable-next-line:component-class-suffix
-export class DeltaProductSetup {
-  public CurrentMonth: DeltaProduct;
-  public LastMonth: DeltaProduct;
-}
+
 export class PurchasesComponent implements OnInit {
   Setup: DeltaProductSetup[] = [];
 
