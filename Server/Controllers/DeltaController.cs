@@ -91,7 +91,7 @@ namespace Server.Controllers
             List<ProductSale> prodSales = await GetFromPoster.GetFromPoster.GetProdSalesByMonthAsync(date);
             foreach(var delt in deltas)
             {
-                GetFromPoster.GetFromPoster.Prod
+                //GetFromPoster.GetFromPoster.Prod
                 // DeltaDTO currentDelta = new DeltaDTO(); 
                 // delta.product = ingrid.ingredient_name;
                 // //delta.supplies = 
