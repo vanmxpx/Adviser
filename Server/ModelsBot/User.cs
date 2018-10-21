@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using Server.Emuns;
+using Server.Enums;
 
-namespace Server
+namespace Server.ModelsBot
 {
     public class User
     {
-        public int ChatId { get; set; }
+        public long ChatId { get; set; }
         public List<Product> Models = new List<Product>();
         public int Hour { get; set; }
         public int Minutes { get; set; }

@@ -3,7 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Telegram.Bot;
-using Server.Emuns;
+using Server.Enums;
+using Server.ModelsBot;
+using System.Text.RegularExpressions;
 
 namespace Server
 {
@@ -15,6 +17,7 @@ namespace Server
         int nextMinute = DateTime.Now.Minute + 1;
 
         List<User> mockSelection = new List<User>();
+        List<Product> models = new List<Product>();
 
         public void RunBot()
         {
@@ -50,11 +53,11 @@ namespace Server
                         // reply buttons
                         
                         var user = mockSelection.Where(t => t.ChatId == message.Chat.Id).FirstOrDefault();
-            if(user == null)
-            {
-                Console.WriteLine(message.Chat.Id);
-                //return; ///!!!!!!!
-            } 
+                        if(user == null)
+                        {
+                            Console.WriteLine(message.Chat.Id);
+                            CreateNewUser(message.Chat.Id);
+                        } 
                         if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
                         {
                             if (user.Status == UserStatus.InMenu)
@@ -85,7 +88,7 @@ namespace Server
                                 // }
                                 if (message.Text.ToLower() == "выборка")
                                 {
-                                    await bot.SendTextMessageAsync(message.Chat.Id, message.Chat.Id.ToString());
+                                    //await bot.SendTextMessageAsync(message.Chat.Id, message.Chat.Id.ToString());
                                     SendSelection(message.Chat.Id);
                                 }
                                 if (message.Text.ToLower() == "фудкост")
@@ -127,33 +130,47 @@ namespace Server
                                 }
                                 if (message.Text.ToLower() == "время нотификации")
                                 {
-                                    await bot.SendTextMessageAsync(message.Chat.Id, "Введите время в формате [часы:минуты] к примеру \"09:40\"",
+                                    await bot.SendTextMessageAsync(message.Chat.Id, "Введите время в формате [часы:минуты]. К примеру \"09:40\"",
                                      Telegram.Bot.Types.Enums.ParseMode.Default, false, false, 0, null);
                                      user.Status = UserStatus.AwaitingNotificationTime;
                                 }
-                                if (message.Text.ToLower() == "часы" || message.Text.ToLower() == "минуты")
+                                if (message.Text.ToLower() == "категории товаров")
                                 {
-                                    var keyboard = new Telegram.Bot.Types.ReplyMarkups.ReplyKeyboardMarkup
-                                    {
-                                        Keyboard = new[] {
-                                                new[] // row 1
-                                                {
-                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Часы"),
-                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Минуты"),
-                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Назад")
-                                                },
-                                            },
-                                        ResizeKeyboard = true
-                                    };
+                                    await bot.SendTextMessageAsync(message.Chat.Id, "Введите через запятую номера товаров. К примеру \"1,4,5,6\"",
+                                     Telegram.Bot.Types.Enums.ParseMode.Default, false, false, 0, null);
+                                     user.Status = UserStatus.AwaitingProductCategories;
 
-                                    bot.OnMessage += async (object er, Telegram.Bot.Args.MessageEventArgs el) =>
+                                    string productMes = "Категории товаров:\n";
+                                    for (int i=0; i<models.Count;i++)
                                     {
-                                        await bot.SendTextMessageAsync(message.Chat.Id, "Данные упешно введены",
-                                     Telegram.Bot.Types.Enums.ParseMode.Default, false, false, 0, keyboard);
-                                    };
+                                        productMes+= (i+1) + " - " + models[i].Name + "\n";
+                                    }
+                                    await bot.SendTextMessageAsync(message.Chat.Id, productMes,
+                                     Telegram.Bot.Types.Enums.ParseMode.Default, false, false, 0, null);
                                 }
+                                // if (message.Text.ToLower() == "часы" || message.Text.ToLower() == "минуты")
+                                // {
+                                //     var keyboard = new Telegram.Bot.Types.ReplyMarkups.ReplyKeyboardMarkup
+                                //     {
+                                //         Keyboard = new[] {
+                                //                 new[] // row 1
+                                //                 {
+                                //                     new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Часы"),
+                                //                     new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Минуты"),
+                                //                     new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Назад")
+                                //                 },
+                                //             },
+                                //         ResizeKeyboard = true
+                                //     };
+
+                                //     bot.OnMessage += async (object er, Telegram.Bot.Args.MessageEventArgs el) =>
+                                //     {
+                                //         await bot.SendTextMessageAsync(message.Chat.Id, "Данные упешно введены",
+                                //      Telegram.Bot.Types.Enums.ParseMode.Default, false, false, 0, keyboard);
+                                //     };
+                                // }
                             }
-                            if (user.Status == UserStatus.AwaitingNotificationTime)
+                            else if (user.Status == UserStatus.AwaitingNotificationTime)
                             {
                                 try
                                 {
@@ -163,7 +180,20 @@ namespace Server
                                 }
                                 catch
                                 {
-
+                                    SendErrorMessage(message.Chat.Id);
+                                }
+                            }
+                            else if (user.Status == UserStatus.AwaitingProductCategories)
+                            {
+                                try
+                                {
+                                    ConvertProducts(user, message.Text);
+                                    user.Status = UserStatus.InMenu;
+                                    ToMainMenu(user, "Данные упешно введены");
+                                }
+                                catch
+                                {
+                                    SendErrorMessage(message.Chat.Id);
                                 }
                             }
                         }
@@ -231,6 +261,21 @@ namespace Server
             product2.AmountSelled = 234;
             product2.Name = "Vodka";
             product2.Money = 234123000.0d;
+            var product3 = new Product();
+            product3.Price = 213.43d;
+            product3.AmountSelled = 234;
+            product3.Name = "Pirog";
+            product3.Money = 234123000.0d;
+            var product4 = new Product();
+            product4.Price = 213.43d;
+            product4.AmountSelled = 234;
+            product4.Name = "Kulish";
+            product4.Money = 234123000.0d;
+
+            models.Add(product1);
+            models.Add(product2);
+            models.Add(product3);
+            models.Add(product4);
 
             var selection = new User();
             selection.Status = UserStatus.InMenu;
@@ -248,8 +293,39 @@ namespace Server
             selection1.Models.Add(product1);
             selection1.Models.Add(product2);
 
+            var selection2 = new User();
+            selection2.Status = UserStatus.InMenu;
+            selection2.ChatId = 352478805;
+            selection2.Hour = 21;
+            selection2.Minutes = 00;
+            selection2.Models.Add(product1);
+            selection2.Models.Add(product2);
+
             mockSelection.Add(selection);
             mockSelection.Add(selection1);
+            mockSelection.Add(selection2);
+        }
+
+        void CreateNewUser(long chatId)
+        {
+            var product1 = new Product();
+            product1.Price = 13.43d;
+            product1.AmountSelled = 23;
+            product1.Name = "Kofe";
+            product1.Money = 123000.0d;
+            var product2 = new Product();
+            product2.Price = 213.43d;
+            product2.AmountSelled = 234;
+            product2.Name = "Vodka";
+            product2.Money = 234123000.0d;
+
+            var selection2 = new User();
+            selection2.Status = UserStatus.InMenu;
+            selection2.ChatId = chatId;
+            selection2.Hour = 21;
+            selection2.Minutes = 00;
+            selection2.Models.Add(product1);
+            selection2.Models.Add(product2);
         }
 
         void ConvertTime(User user, string timeStri)
@@ -278,7 +354,22 @@ namespace Server
             int hourInt = int.Parse(hour);
             user.Minutes = minutesInt;
             user.Hour = hourInt;
+        }
 
+        void ConvertProducts(User user, string productsStri)
+        {
+            string[] lines = Regex.Split(productsStri, ",");
+            user.Models.Clear();
+            foreach (string line in lines)
+            {
+                user.Models.Add(models[int.Parse(line)-1]);
+            }
+        }
+
+        async void SendErrorMessage(long chatId)
+        {
+            await bot.SendTextMessageAsync(chatId, "Неправельно введены данные",
+                Telegram.Bot.Types.Enums.ParseMode.Default);
         }
 
         async void ToMainMenu(User user, string text)
@@ -295,8 +386,8 @@ namespace Server
                                             },
                                         ResizeKeyboard = true
                                     };
-                                    await bot.SendTextMessageAsync(user.ChatId, text,
-                                     Telegram.Bot.Types.Enums.ParseMode.Default, false, false, 0, keyboard);
+            await bot.SendTextMessageAsync(user.ChatId, text,
+                Telegram.Bot.Types.Enums.ParseMode.Default, false, false, 0, keyboard);
         }
     }
 }

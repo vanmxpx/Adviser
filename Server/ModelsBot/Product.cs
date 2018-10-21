@@ -1,4 +1,4 @@
-namespace Server
+namespace Server.ModelsBot
 {
     public class Product
     {
