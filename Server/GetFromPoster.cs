@@ -70,6 +70,17 @@ namespace GetFromPoster
             return res.response.data;
         }
 
+        public static async Task<List<double>> GetSalesByProdAsync(int id)
+        {
+            HttpResponseMessage response = await client.GetAsync(
+                 $"https://hackathon.joinposter.com/api/dash.getAnalytics?token=003643154d8e4a5e7e2d65389376a788&dateFrom=20120101&type=products&id={id}&select=profit&interpolate=day"
+            );
+            response.EnsureSuccessStatusCode();
+            var resString = await response.Content.ReadAsStringAsync();
+            var res = JsonConvert.DeserializeObject<Response<StatData>>(resString);
+            return res.response.data;
+        }
+
         public static async Task<WasteDetails> GetWasteDetailsAsync(int wasteId)
         {
             HttpResponseMessage response = await client.GetAsync(
