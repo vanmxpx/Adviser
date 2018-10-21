@@ -1,18 +1,11 @@
 @import "../assets/variables";
-
-.main-container{
-    display: flex;
-    flex-direction: row;
+button {
+    outline: none;
+}
+::ng-deep .mat-card{
     height: 100vh;
-    
-
+    background-color: #fbfbfb7d;
 }
-
-.menu{
-    .mat-card{
-        padding: 0px;
-    }
-}
-.mainContainer .content{
-
+.leftblock {
+    height: 100vh;
 }
