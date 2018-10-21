@@ -7,32 +7,30 @@ import { DeltaProductService } from '../../Services/delta-product.service';
   templateUrl: './purchases.component.html',
   styleUrls: ['./purchases.component.scss']
 })
-export class PurchasesComponent implements OnInit {
-  CurrentMonth: DeltaProduct[] = [];
-  LastMonth: DeltaProduct[] = [];
 
-  DeltaProduct: [DeltaProduct, DeltaProduct];
+// tslint:disable-next-line:component-class-suffix
+export class DeltaProductSetup {
+  public CurrentMonth: DeltaProduct;
+  public LastMonth: DeltaProduct;
+}
+export class PurchasesComponent implements OnInit {
+  Setup: DeltaProductSetup[] = [];
+
+
 
   constructor(private deltaProductService: DeltaProductService) {
 
   }
   ngOnInit() {
-this.GetCurrentMonthProduct();
+    this.GetSetupProduct();
   }
-  GetCurrentMonthProduct() {
+  GetSetupProduct() {
     const res = this.deltaProductService.GetDeltaProduct();
     res.forEach(item => {
-      this.CurrentMonth.push(item);
+      this.Setup.push(item);
     });
-
   }
-  GetLastMonthProduct() {
-    const res = this.deltaProductService.GetDeltaProduct();
-    res.forEach(item => {
-      this.LastMonth.push(item);
-    });
-
-  }
-
-
 }
+
+
+
