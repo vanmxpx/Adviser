@@ -56,7 +56,7 @@ namespace Server
                         if(user == null)
                         {
                             Console.WriteLine(message.Chat.Id);
-                            CreateNewUser(message.Chat.Id);
+                            user = CreateNewUser(message.Chat.Id);
                         } 
                         if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
                         {
@@ -306,7 +306,7 @@ namespace Server
             mockSelection.Add(selection2);
         }
 
-        void CreateNewUser(long chatId)
+        User CreateNewUser(long chatId)
         {
             var product1 = new Product();
             product1.Price = 13.43d;
@@ -326,6 +326,9 @@ namespace Server
             selection2.Minutes = 00;
             selection2.Models.Add(product1);
             selection2.Models.Add(product2);
+            
+            mockSelection.Add(selection2);
+            return selection2;
         }
 
         void ConvertTime(User user, string timeStri)
