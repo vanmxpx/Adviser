@@ -9,16 +9,16 @@
     <div>Остаток</div>
   </mat-card>
   <mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let item of CurrentMonth">
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let item of Setup">
       <mat-expansion-panel-header>
         <mat-panel-title>
-            <div>{{item.Name}}</div>
-            <div>{{item.SupplySum}}</div>
+            <div>{{Setup.CurrentMonth.Name}}</div>
+            <!-- <div>{{item.SupplySum}}</div>
             <div>{{item.WastedSum}}</div>
             <div>{{item.InventorySum}}</div>
             <div>{{item.Sales}}</div>
             <div>{{item.Delta}}</div>
-            <div>{{item.Leftovers}}</div>
+            <div>{{item.Leftovers}}</div> -->
               
         </mat-panel-title>
       </mat-expansion-panel-header>

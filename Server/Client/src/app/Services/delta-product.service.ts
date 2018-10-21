@@ -46,7 +46,7 @@ export class DeltaProductService {
       Leftovers: 2,
       LeftoversUnit: 'l'
     };
-
+products.push(prod1);
     return products;
   }
 }
