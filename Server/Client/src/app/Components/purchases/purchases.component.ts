@@ -27,10 +27,11 @@ export class PurchasesComponent implements OnInit {
     this.GetSetupProduct();
   }
   GetSetupProduct() {
-    const res = this.deltaProductService.GetDeltaProduct();
+    const res = this.deltaProductService.GetDeltaProduct()
+    .then(res =>
     res.forEach(item => {
       this.Setup.push(item);
-    });
+    }));
   }
 }
 

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DeltaProductSetup } from '../Components/purchases/purchases.component';
 
 import { DeltaProduct } from '../Models/deltaProduct';
+import { DeltaDTO } from '../Models/deltaDTO';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,9 +18,11 @@ const httpOptions = {
 export class DeltaProductService {
 
   constructor(private http: HttpClient) { }
-  public GetDeltaProduct(): DeltaProductSetup[] {
-    // return this.http.get<Post[]>('http://localhost:5000/api/posts/postsByPage?authorId='
-    // + profileId.toString() + '&page=' + page.toString());
+  public async GetDeltaProduct(): Promise<DeltaProductSetup[]> {
+    let delta1 = await this.http.get<DeltaDTO[]>('https://posanalitycs.azurewebsites.net/api/delta/byMonth?month=3&year=2016').toPromise();
+    let delta2 = await this.http.get<DeltaDTO[]>('https://posanalitycs.azurewebsites.net/api/delta/byMonth?month=4&year=2016').toPromise();
+    let delta3 = await this.http.get<DeltaDTO[]>('https://posanalitycs.azurewebsites.net/api/delta/byMonth?month=5&year=2016').toPromise();
+    let delta4 = await this.http.get<DeltaDTO[]>('https://posanalitycs.azurewebsites.net/api/delta/byMonth?month=6&year=2016').toPromise();
 
     const products: DeltaProductSetup[] = [
 

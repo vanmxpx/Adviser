@@ -43,10 +43,29 @@ namespace Server.Controllers
         [Produces("application/json")]
         [HttpGet("byMonth")]
         // поставки по месяцу
-        public Task<IActionResult> GetDeltaByMonth([FromQuery]int mounth, [FromQuery] int year)
+        public async Task<IActionResult> GetDeltaByMonth([FromQuery]int month, [FromQuery] int year)
         {   
+            string date = year.ToString();
+            date += month < 10 ? "0" + month.ToString() : month.ToString();
+            DeltaDTO delta = new DeltaDTO();
+            // postavki  
+            List<Supply> suppliers = await GetFromPoster.GetFromPoster.GetSuppliesByMonthAsync(date);
+            long totalSuppliers = suppliers.Where(d => d.delete != 1).Sum(s => s.supply_sum);
+            delta.supplies = totalSuppliers;
+            // spisaniya 
+            List<Waste> wastes = await GetFromPoster.GetFromPoster.GetWastesByMonthAsync(date);
+            long totalWastes = wastes.Where(d => d.delete != 1).Sum(s => s.total_sum);
+            delta.wastes = totalWastes;
 
-            return GetFromPoster.GetFromPoster.GetProducts(); 
+            // sales
+
+            List<double> sales = await GetFromPoster.GetFromPoster.GetSalesByMonthAsync(date);
+            double totalSales = sales.Sum(s => s);
+            delta.sales = (long)totalSales;
+
+            delta.delta = delta.supplies - delta.wastes - delta.sales;
+
+            return Ok(JsonConvert.SerializeObject(delta));
         }
 
         [Produces("application/json")]

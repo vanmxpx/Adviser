@@ -46,6 +46,17 @@ namespace GetFromPoster
             return res.response;
         }
 
+        public static async Task<List<Supply>> GetSuppliesByMonthAsync(string date)
+        {
+            HttpResponseMessage response = await client.GetAsync(
+                 $"https://hackathon.joinposter.com/api/storage.getSupplies?format=json&token=003643154d8e4a5e7e2d65389376a788&dateFrom={date+"01"}&dateTo={date+"30"}"
+            );
+            response.EnsureSuccessStatusCode();
+            var resString = await response.Content.ReadAsStringAsync();
+            var res = JsonConvert.DeserializeObject<Response<List<Supply>>>(resString);
+            return res.response;
+        }
+
         // списания 
         public static async Task<List<Waste>> GetWastesAsync()
         {
@@ -58,11 +69,33 @@ namespace GetFromPoster
             return res.response;
         }
 
+        public static async Task<List<Waste>> GetWastesByMonthAsync(string date)
+        {
+            HttpResponseMessage response = await client.GetAsync(
+                 $"https://hackathon.joinposter.com/api/storage.getWastes?format=json&token=003643154d8e4a5e7e2d65389376a788&dateFrom={date+"01"}&dateTo={date+"30"}"
+            );
+            response.EnsureSuccessStatusCode();
+            var resString = await response.Content.ReadAsStringAsync();
+            var res = JsonConvert.DeserializeObject<Response<List<Waste>>>(resString);
+            return res.response;
+        }
+
         // списания 
         public static async Task<List<double>> GetSalesAsync()
         {
             HttpResponseMessage response = await client.GetAsync(
                  @"https://hackathon.joinposter.com/api/dash.getAnalytics?format=json&token=003643154d8e4a5e7e2d65389376a788&dateFrom=20100101&select=profit&interpolate=week"
+            );
+            response.EnsureSuccessStatusCode();
+            var resString = await response.Content.ReadAsStringAsync();
+            var res = JsonConvert.DeserializeObject<Response<StatData>>(resString);
+            return res.response.data;
+        }
+
+        public static async Task<List<double>> GetSalesByMonthAsync(string date)
+        {
+            HttpResponseMessage response = await client.GetAsync(
+                 $"https://hackathon.joinposter.com/api/dash.getAnalytics?format=json&token=003643154d8e4a5e7e2d65389376a788&dateFrom={date+"01"}&dateTo={date+"30"}&select=profit&interpolate=week"
             );
             response.EnsureSuccessStatusCode();
             var resString = await response.Content.ReadAsStringAsync();
