@@ -7,6 +7,6 @@ namespace Server.Models.DTO
         public long inventory { get; set; }
         public long sales { get; set; }
         public long delta { get; set; }
-
+        public string product {get; set; }
     }
 }
