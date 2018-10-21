@@ -2,9 +2,10 @@ namespace Server.ModelsBot
 {
     public class Product
     {
-        public string Name { get; set; }
-        public double Price {get; set;}
-        public int AmountSelled {get;set;}
-        public double Money {get; set;}
+        public int product_id {get;set;}
+        public string product_name { get; set; }
+        public int product_price {get; set;}
+        public int num {get;set;}
+        public int product_profit {get; set;}
     }
 }

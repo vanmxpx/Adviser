@@ -103,7 +103,7 @@ namespace Server
                                                 new[] // row 1
                                                 {
                                                     new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Настройки выборки"),
-                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Настройки фудкоста"),
+                                                    //new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Настройки фудкоста"),
                                                 },
                                             },
                                         ResizeKeyboard = true
@@ -141,9 +141,9 @@ namespace Server
                                      user.Status = UserStatus.AwaitingProductCategories;
 
                                     string productMes = "Категории товаров:\n";
-                                    for (int i=0; i<models.Count;i++)
+                                    for (int i=0; i<user.ModelsAll.Count;i++)
                                     {
-                                        productMes+= (i+1) + " - " + models[i].Name + "\n";
+                                        productMes+= (i+1) + " - " + user.ModelsAll[i].product_name + "\n";
                                     }
                                     await bot.SendTextMessageAsync(message.Chat.Id, productMes,
                                      Telegram.Bot.Types.Enums.ParseMode.Default, false, false, 0, null);
@@ -242,82 +242,82 @@ namespace Server
             for (int i = 0; i < userModel.Models.Count; i++)
             {
                 await bot.SendTextMessageAsync(userModel.ChatId, " " +
-                userModel.Models[i].Name + "\n ------ \n Себестоимость - "
-                + userModel.Models[i].Price + " грн \n Кол-во проданных - "
-                + userModel.Models[i].AmountSelled + " ед.\n Выручка - "
-                + userModel.Models[i].Money + " грн\n ");
+                userModel.Models[i].product_name + "\n ------ \n Себестоимость - "
+                + userModel.Models[i].product_price + " коп \n Кол-во проданных - "
+                + userModel.Models[i].num + " ед.\n Выручка - "
+                + userModel.Models[i].product_profit + " коп\n ");
             }
         }
 
         void FillMockSelection()
         {
             var product1 = new Product();
-            product1.Price = 13.43d;
-            product1.AmountSelled = 23;
-            product1.Name = "Kofe";
-            product1.Money = 123000.0d;
+            product1.product_price = 1343;
+            product1.num = 23;
+            product1.product_name = "Kofe";
+            product1.product_profit = 1230000;
             var product2 = new Product();
-            product2.Price = 213.43d;
-            product2.AmountSelled = 234;
-            product2.Name = "Vodka";
-            product2.Money = 234123000.0d;
+            product2.product_price = 21343;
+            product2.num = 234;
+            product2.product_name = "Vodka";
+            product2.product_profit = 234100;
             var product3 = new Product();
-            product3.Price = 213.43d;
-            product3.AmountSelled = 234;
-            product3.Name = "Pirog";
-            product3.Money = 234123000.0d;
+            product3.product_price = 21343;
+            product3.num = 234;
+            product3.product_name = "Pirog";
+            product3.product_profit = 234120;
             var product4 = new Product();
-            product4.Price = 213.43d;
-            product4.AmountSelled = 234;
-            product4.Name = "Kulish";
-            product4.Money = 234123000.0d;
+            product4.product_price = 21343;
+            product4.num = 234;
+            product4.product_name = "Kulish";
+            product4.product_profit = 2341230;
 
             models.Add(product1);
             models.Add(product2);
             models.Add(product3);
             models.Add(product4);
 
-            var selection = new User();
-            selection.Status = UserStatus.InMenu;
-            selection.ChatId = 341195271;
-            selection.Hour = 21;
-            selection.Minutes = 00;
-            selection.Models.Add(product1);
-            selection.Models.Add(product2);
+            // var selection = new User();
+            // selection.Status = UserStatus.InMenu;
+            // selection.ChatId = 341195271;
+            // selection.Hour = 21;
+            // selection.Minutes = 00;
+            // selection.Models.Add(product1);
+            // selection.Models.Add(product2);
 
-            var selection1 = new User();
-            selection1.Status = UserStatus.InMenu;
-            selection1.ChatId = 555088775;
-            selection1.Hour = 21;
-            selection1.Minutes = 00;
-            selection1.Models.Add(product1);
-            selection1.Models.Add(product2);
+            // var selection1 = new User();
+            // selection1.Status = UserStatus.InMenu;
+            // selection1.ChatId = 555088775;
+            // selection1.Hour = 21;
+            // selection1.Minutes = 00;
+            // selection1.Models.Add(product1);
+            // selection1.Models.Add(product2);
 
-            var selection2 = new User();
-            selection2.Status = UserStatus.InMenu;
-            selection2.ChatId = 352478805;
-            selection2.Hour = 21;
-            selection2.Minutes = 00;
-            selection2.Models.Add(product1);
-            selection2.Models.Add(product2);
+            // var selection2 = new User();
+            // selection2.Status = UserStatus.InMenu;
+            // selection2.ChatId = 352478805;
+            // selection2.Hour = 21;
+            // selection2.Minutes = 00;
+            // selection2.Models.Add(product1);
+            // selection2.Models.Add(product2);
 
-            mockSelection.Add(selection);
-            mockSelection.Add(selection1);
-            mockSelection.Add(selection2);
+            // mockSelection.Add(selection);
+            // mockSelection.Add(selection1);
+            // mockSelection.Add(selection2);
         }
 
         User CreateNewUser(long chatId)
         {
             var product1 = new Product();
-            product1.Price = 13.43d;
-            product1.AmountSelled = 23;
-            product1.Name = "Kofe";
-            product1.Money = 123000.0d;
+            product1.product_price = 1343;
+            product1.num = 23;
+            product1.product_name = "Kofe";
+            product1.product_profit = 1230;
             var product2 = new Product();
-            product2.Price = 213.43d;
-            product2.AmountSelled = 234;
-            product2.Name = "Vodka";
-            product2.Money = 234123000.0d;
+            product2.product_price = 21343;
+            product2.num = 234;
+            product2.product_name = "Vodka";
+            product2.product_profit = 23412;
 
             var selection2 = new User();
             selection2.Status = UserStatus.InMenu;
@@ -327,6 +327,8 @@ namespace Server
             selection2.Models.Add(product1);
             selection2.Models.Add(product2);
             
+            selection2.ModelsAll = models;
+
             mockSelection.Add(selection2);
             return selection2;
         }
@@ -365,7 +367,7 @@ namespace Server
             user.Models.Clear();
             foreach (string line in lines)
             {
-                user.Models.Add(models[int.Parse(line)-1]);
+                user.Models.Add(user.ModelsAll[int.Parse(line)-1]);
             }
         }
 
@@ -383,8 +385,7 @@ namespace Server
                                                 new[] // row 1
                                                 {
                                                     new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Выборка"),
-                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Фудкост"),
-                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Настройки"),
+                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Настройки выборки"),
                                                 },
                                             },
                                         ResizeKeyboard = true
