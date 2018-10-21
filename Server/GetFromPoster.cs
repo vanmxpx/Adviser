@@ -123,7 +123,18 @@ namespace GetFromPoster
 
             return new OkObjectResult(JsonConvert.SerializeObject(await response.Content.ReadAsStringAsync()));
         }
-        public static async Task<List<Product>> GetProductsNameId(int id)
+
+        public static async Task<List<ProductNameId>> GetProductsIdNames()
+        {
+            HttpResponseMessage response = await client.GetAsync(
+                 @"https://hackathon.joinposter.com/api/menu.getProducts?format=json&token=003643154d8e4a5e7e2d65389376a788"
+            );
+            response.EnsureSuccessStatusCode();
+            var resString = await response.Content.ReadAsStringAsync();
+            var res = JsonConvert.DeserializeObject<Response<List<ProductNameId>>>(resString);
+            return res.response;
+        }
+        public static async Task<Product> GetProductsNameId(int id)
         {
             List<Product> products = new List<Product>();
 
@@ -148,7 +159,18 @@ namespace GetFromPoster
             }
 
             List<Product> productById = products.FindAll(p => p.product_id == id);
-            return productById;
+
+            Product product = new Product();
+            product.product_id = productById[0].product_id;
+            product.product_price = productById[0].product_price;
+            product.product_profit = productById[0].product_profit;
+            int amount = 0;
+            for (int i=0;i<productById.Count;i++)
+            {
+                amount += productById[i].num;
+            }
+            product.num = amount;
+            return product;
         }
         // продукт
         public static async Task<Product> GetProduct(int productId)

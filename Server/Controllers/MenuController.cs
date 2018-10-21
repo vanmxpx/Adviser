@@ -24,11 +24,17 @@ namespace Server.Controllers
             return GetFromPoster.GetFromPoster.GetProducts();
         }
 
-        [HttpGet("products-name-id/{id}")]
-        public Task<List<Product>> GetProductsNameId([FromRoute] int id)
+        [HttpGet("productIds")]
+        public Task<IActionResult> GetProductIds()
         {            
-            return GetFromPoster.GetFromPoster.GetProductsNameId(id);
+            return GetFromPoster.GetFromPoster.GetProducts();
         }
+
+        // [HttpGet("products-name-id/{id}")]
+        // public Task<List<Product>> GetProductsNameId([FromRoute] int id)
+        // {            
+        //     return GetFromPoster.GetFromPoster.GetProductsNameId(id);
+        // }
 
         [HttpGet("ingredient/{id}")]
         public Task<IActionResult> GetIngredient([FromRoute] int id)

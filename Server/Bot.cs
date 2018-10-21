@@ -5,6 +5,7 @@ using System.ComponentModel;
 using Telegram.Bot;
 using Server.Enums;
 using Server.ModelsBot;
+using Server.Models;
 using System.Text.RegularExpressions;
 
 namespace Server
@@ -251,31 +252,33 @@ namespace Server
 
         void FillMockSelection()
         {
-            var product1 = new Product();
-            product1.product_price = 1343;
-            product1.num = 23;
-            product1.product_name = "Kofe";
-            product1.product_profit = 1230000;
-            var product2 = new Product();
-            product2.product_price = 21343;
-            product2.num = 234;
-            product2.product_name = "Vodka";
-            product2.product_profit = 234100;
-            var product3 = new Product();
-            product3.product_price = 21343;
-            product3.num = 234;
-            product3.product_name = "Pirog";
-            product3.product_profit = 234120;
-            var product4 = new Product();
-            product4.product_price = 21343;
-            product4.num = 234;
-            product4.product_name = "Kulish";
-            product4.product_profit = 2341230;
+            // var product1 = new Product();
+            // product1.product_price = 1343;
+            // product1.num = 23;
+            // product1.product_name = "Kofe";
+            // product1.product_profit = 1230000;
+            // var product2 = new Product();
+            // product2.product_price = 21343;
+            // product2.num = 234;
+            // product2.product_name = "Vodka";
+            // product2.product_profit = 234100;
+            // var product3 = new Product();
+            // product3.product_price = 21343;
+            // product3.num = 234;
+            // product3.product_name = "Pirog";
+            // product3.product_profit = 234120;
+            // var product4 = new Product();
+            // product4.product_price = 21343;
+            // product4.num = 234;
+            // product4.product_name = "Kulish";
+            // product4.product_profit = 2341230;
 
-            models.Add(product1);
-            models.Add(product2);
-            models.Add(product3);
-            models.Add(product4);
+            models = GetProductsForBot();
+
+            // models.Add(product1);
+            // models.Add(product2);
+            // models.Add(product3);
+            // models.Add(product4);
 
             // var selection = new User();
             // selection.Status = UserStatus.InMenu;
@@ -308,24 +311,24 @@ namespace Server
 
         User CreateNewUser(long chatId)
         {
-            var product1 = new Product();
-            product1.product_price = 1343;
-            product1.num = 23;
-            product1.product_name = "Kofe";
-            product1.product_profit = 1230;
-            var product2 = new Product();
-            product2.product_price = 21343;
-            product2.num = 234;
-            product2.product_name = "Vodka";
-            product2.product_profit = 23412;
+            // var product1 = new Product();
+            // product1.product_price = 1343;
+            // product1.num = 23;
+            // product1.product_name = "Kofe";
+            // product1.product_profit = 1230;
+            // var product2 = new Product();
+            // product2.product_price = 21343;
+            // product2.num = 234;
+            // product2.product_name = "Vodka";
+            // product2.product_profit = 23412;
 
             var selection2 = new User();
             selection2.Status = UserStatus.InMenu;
             selection2.ChatId = chatId;
             selection2.Hour = 21;
             selection2.Minutes = 00;
-            selection2.Models.Add(product1);
-            selection2.Models.Add(product2);
+            // selection2.Models.Add(product1);
+            // selection2.Models.Add(product2);
             
             selection2.ModelsAll = models;
 
@@ -392,6 +395,30 @@ namespace Server
                                     };
             await bot.SendTextMessageAsync(user.ChatId, text,
                 Telegram.Bot.Types.Enums.ParseMode.Default, false, false, 0, keyboard);
+        }
+
+        public List<Product> GetProductsForBot()
+        {
+            var products = GetFromPoster.GetFromPoster.GetProductsIdNames();
+            var productsRes = products.Result.Distinct().ToList();
+            List<Product> final = new List<Product>();
+            for (int i = 0; i < productsRes.Count; i++)
+            {
+                try
+                {
+                    var dayProd = GetFromPoster.GetFromPoster.GetProductsNameId(productsRes[i].product_id).Result;
+                    if (dayProd.num != 0)
+                    {
+                        dayProd.product_name = productsRes[i].product_name;
+                        final.Add(dayProd);
+                    }
+                }
+                catch
+                {
+
+                } 
+            }
+            return final;
         }
     }
 }

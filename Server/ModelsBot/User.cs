@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Server.Enums;
+using Server.Models;
 
 namespace Server.ModelsBot
 {

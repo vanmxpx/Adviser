@@ -14,7 +14,7 @@ namespace Server.Controllers
         //поставщики       
         [HttpGet("transactions")]
         public Task<List<Transaction>> GetTransactions()
-        {  
+        {
             DateTime timeFrom = DateTime.Now.AddDays(-1).Date;
             DateTime timeTo = DateTime.Now.Date;
 
@@ -24,24 +24,27 @@ namespace Server.Controllers
             var dateTimeToOffset = new DateTimeOffset(timeTo);
             var unixDateTimeTo = dateTimeToOffset.ToUnixTimeSeconds();
 
-            return GetFromPoster.GetFromPoster.GetTransactions(unixDateTimeFrom, unixDateTimeTo);            
-        }        
-
-       [HttpGet("transactions/{productId}")]
-       public Task<List<Product>> GetProductInTransaction([FromRoute] int productId)
-        {  
-            DateTime timeFrom = DateTime.Now.AddDays(-1).Date;
-            DateTime timeTo = DateTime.Now.Date;
-
-            var dateTimeFromOffset = new DateTimeOffset(timeFrom);
-            var unixDateTimeFrom = dateTimeFromOffset.ToUnixTimeSeconds();
-
-            var dateTimeToOffset = new DateTimeOffset(timeTo);
-            var unixDateTimeTo = dateTimeToOffset.ToUnixTimeSeconds();
-
-            var transactions = GetFromPoster.GetFromPoster.GetTransactions(unixDateTimeFrom, unixDateTimeTo); 
-
-            return GetFromPoster.GetFromPoster.GetProductsNameId(productId);            
+            return GetFromPoster.GetFromPoster.GetTransactions(unixDateTimeFrom, unixDateTimeTo);
         }
+
+        // [HttpGet("transactions/{productId}")]
+        // public Task<List<Product>> GetProductInTransaction([FromRoute] int productId)
+        // {
+        //     DateTime timeFrom = DateTime.Now.AddDays(-1).Date;
+        //     DateTime timeTo = DateTime.Now.Date;
+
+        //     var dateTimeFromOffset = new DateTimeOffset(timeFrom);
+        //     var unixDateTimeFrom = dateTimeFromOffset.ToUnixTimeSeconds();
+
+        //     var dateTimeToOffset = new DateTimeOffset(timeTo);
+        //     var unixDateTimeTo = dateTimeToOffset.ToUnixTimeSeconds();
+
+        //     var transactions = GetFromPoster.GetFromPoster.GetTransactions(unixDateTimeFrom, unixDateTimeTo);
+
+        //     return GetFromPoster.GetFromPoster.GetProductsNameId(productId);
+        // }
+
+        //[HttpGet("transactions/{productId}")]
+
     }
 }

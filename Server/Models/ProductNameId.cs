@@ -8,13 +8,9 @@ using Newtonsoft.Json;
 
 namespace Server.Models
 {
-    public class Product
+    public class ProductNameId
     {        
         public int product_id { get; set; }
-        public string product_name {get; set;}     
-        public int cost {get; set;}   
-        public int num {get; set;}
-        public double product_price{set; get;}
-        public double product_profit{get; set;}
+        public string product_name {get; set;}
     }
 }
