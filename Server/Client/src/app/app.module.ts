@@ -8,6 +8,7 @@ import { FoodcostComponent } from './Components/foodcost/foodcost.component';
 import { PurchasesComponent } from './Components/purchases/purchases.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
+  MatTableModule,
   MatMenuModule,
   MatExpansionModule,
   MatButtonModule,
@@ -30,6 +31,7 @@ import { SettingsComponent } from './Components/settings/settings.component';
   ],
   imports: [
     FormsModule,
+    MatTableModule,
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,

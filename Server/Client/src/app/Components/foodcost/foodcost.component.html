@@ -1,3 +1,51 @@
-<p>
-  foodcost works!
-</p>
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+      Coffe
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+      <div class="mat-elevation-z8">
+       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> № </th>
+          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Cost Column -->
+        <ng-container matColumnDef="cost">
+          <th mat-header-cell *matHeaderCellDef> Cost </th>
+          <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+        </ng-container>
+
+        <!-- LeftOvers Column -->
+        <ng-container matColumnDef="left_overs">
+          <th mat-header-cell *matHeaderCellDef> Left Overs </th>
+          <td mat-cell *matCellDef="let element"> {{element.left_overs}} </td>
+        </ng-container>
+
+        <!-- Supplier Column -->
+        <ng-container matColumnDef="supplier">
+          <th mat-header-cell *matHeaderCellDef> Supplier </th>
+          <td mat-cell *matCellDef="let element"> {{element.supplier}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="chart">
+          <th mat-header-cell *matHeaderCellDef> Chart  </th>
+          <td mat-cell *matCellDef="let element"> Chart </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      </div>
+  
+  </mat-expansion-panel>
