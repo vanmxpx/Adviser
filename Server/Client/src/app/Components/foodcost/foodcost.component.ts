@@ -10,17 +10,16 @@ import { Ingredient } from 'src/app/Models/ingredient';
 })
 
 export class FoodcostComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'cost', 'supplier', 'left_overs', 'chart'];
+  displayedColumns: string[] = ['position', 'name', 'cost', 'supplier', 'left_overs'];
   dataSource = ELEMENT_DATA;
   constructor() { }
-  ngOnInit() {
+  ngOnInit() {  
   }
 }
 
 
 const ELEMENT_DATA: Ingredient[] = [
-  {position: 1, name: 'Hydrogen', cost: 1.0079, supplier: 'H', left_overs: 1},
-  {position: 2, name: 'Helium', cost: 4.0026, supplier: 'He', left_overs: 10 },
-  {position: 3, name: 'Lithium', cost: 6.941, supplier: 'Li', left_overs: 1},
-  {position: 4, name: 'Beryllium', cost: 9.0122, supplier: 'Be', left_overs: 1},
+  {position: 1, name: 'Соль', cost: 400, supplier: 'Ваня Иванов', left_overs: 3},
+  {position: 2, name: 'Текила', cost: 5000, supplier: 'Jonh Doe', left_overs: 5 },
+  {position: 3, name: 'Лайм', cost: 2000, supplier: 'Fuck Fuck', left_overs: 10},
 ];

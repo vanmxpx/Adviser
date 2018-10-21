@@ -10,3 +10,10 @@ table {
   td, th {
     width: 25%;
   }
+  .mat-elevation-z8 {
+    box-shadow: none;
+  }
+ 
+  td[_ngcontent-c4], th[_ngcontent-c4] {
+    width:20%;
+  }
