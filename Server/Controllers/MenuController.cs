@@ -23,6 +23,12 @@ namespace Server.Controllers
             return GetFromPoster.GetFromPoster.GetProducts();
         }
 
+        [HttpGet("productsNameId")]
+        public Task<IActionResult> GetProductsNameId()
+        {            
+            return GetFromPoster.GetFromPoster.GetProductsNameId();
+        }
+
         [HttpGet("ingredient/{id}")]
         public Task<IActionResult> GetIngredient([FromRoute] int id)
         {            

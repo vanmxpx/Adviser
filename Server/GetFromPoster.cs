@@ -4,7 +4,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Formatting;
 using Newtonsoft.Json;
+using Product;
 
 namespace GetFromPoster
 {
@@ -61,14 +63,8 @@ namespace GetFromPoster
             );
             response.EnsureSuccessStatusCode();
 
-<<<<<<< HEAD
             return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
-=======
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.SerializeObject(responseBody);// return response.Content;
->>>>>>> e35ab93e65f3b467e57e2bfecb349cd14045a219
-        }
+       }
 
         //МЕНЮ
         //ингредиенты
@@ -99,14 +95,11 @@ namespace GetFromPoster
             );
             response.EnsureSuccessStatusCode();
             
-            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
-          
+            return  await response.Content.ReadAsAsync<Product.Product>();
         }
         // продукт
         public static async Task<IActionResult> GetProduct(int productId)
-        {
-            string path = @"https://hackathon.joinposter.com/api/menu.getProduct?format=json&token=003643154d8e4a5e7e2d65389376a788&product_id=" + productId;
-
+        {            
             HttpResponseMessage response = await client.GetAsync(
                  @"https://hackathon.joinposter.com/api/menu.getProduct?format=json&token=003643154d8e4a5e7e2d65389376a788&product_id=" + productId
             );
@@ -114,8 +107,34 @@ namespace GetFromPoster
 
             return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
         }
+        // получить транзакцию за выбранное время и по айди заведения
+        public static async Task<IActionResult> GetTransactions(long dateFrom, long dateTo)
+        {            
+            HttpResponseMessage response = await client.GetAsync(
+                 @"https://hackathon.joinposter.com/api/dash.getTransactions?format=json&token=003643154d8e4a5e7e2d65389376a788&dateFrom=" + dateFrom 
+                 +"&dateTo=" + dateTo + "&type=spots&include_products=true"
 
+            );
+            response.EnsureSuccessStatusCode();
 
+           // return  await response.Content.ReadAsAsync<>();
+           
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
+        }
+   /*    public static async Task<IActionResult> GetTransactionProducts()
+        {            
+            HttpResponseMessage response = await client.GetAsync(
+                 @"https://hackathon.joinposter.com/api/dash.getTransactions?format=json&token=003643154d8e4a5e7e2d65389376a788&dateFrom=" + dateFrom 
+                 +"&dateTo=" + dateTo + "&type=spots&include_products=true"
+
+            );
+            response.EnsureSuccessStatusCode();
+
+           // return  await response.Content.ReadAsAsync<>();
+           
+            return new OkObjectResult( JsonConvert.SerializeObject( await response.Content.ReadAsStringAsync()));
+        }
+*/
     }
 
 }
