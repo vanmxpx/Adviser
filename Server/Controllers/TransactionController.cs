@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Server.Models;
 
 namespace Server.Controllers
 {
@@ -12,7 +13,7 @@ namespace Server.Controllers
     {
         //поставщики       
         [HttpGet("transactions")]
-        public Task<IActionResult> GetTransactions()
+        public Task<List<Transaction>> GetTransactions()
         {  
             DateTime timeFrom = DateTime.Now.AddDays(-1).Date;
             DateTime timeTo = DateTime.Now.Date;
@@ -27,7 +28,7 @@ namespace Server.Controllers
         }        
 
        [HttpGet("transactions/{productId}")]
-       public Task<IActionResult> GetProductInTransaction([FromRoute] int productId)
+       public Task<List<Product>> GetProductInTransaction([FromRoute] int productId)
         {  
             DateTime timeFrom = DateTime.Now.AddDays(-1).Date;
             DateTime timeTo = DateTime.Now.Date;
@@ -40,7 +41,7 @@ namespace Server.Controllers
 
             var transactions = GetFromPoster.GetFromPoster.GetTransactions(unixDateTimeFrom, unixDateTimeTo); 
 
-            return GetProductInTransaction(transactions);            
+            return GetFromPoster.GetFromPoster.GetProductsNameId(productId);            
         }
     }
 }
