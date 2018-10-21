@@ -159,17 +159,20 @@ namespace GetFromPoster
             }
 
             List<Product> productById = products.FindAll(p => p.product_id == id);
-
             Product product = new Product();
-            product.product_id = productById[0].product_id;
-            product.product_price = productById[0].product_price;
-            product.product_profit = productById[0].product_profit;
-            int amount = 0;
-            for (int i=0;i<productById.Count;i++)
+            if (productById.Count>0)
             {
-                amount += productById[i].num;
+                product.product_id = productById[0].product_id;
+                product.product_price = productById[0].product_price;
+                product.product_profit = productById[0].product_profit;
+                double amount = 0;
+                for (int i=0;i<productById.Count;i++)
+                {
+                    amount += productById[i].num;
+                }
+                product.num = amount;
             }
-            product.num = amount;
+            
             return product;
         }
         // продукт

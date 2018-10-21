@@ -13,7 +13,7 @@ namespace Server.Models
         public int product_id { get; set; }
         public string product_name {get; set;}     
         public int cost {get; set;}   
-        public int num {get; set;}
+        public double num {get; set;}
         public double product_price{set; get;}
         public double product_profit{get; set;}
     }

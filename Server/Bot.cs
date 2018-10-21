@@ -121,8 +121,8 @@ namespace Server
                                                 new[] // row 1
                                                 {
                                                     new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Время нотификации"),
-                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Категории товаров"),
-                                                },
+                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Категории товаров"),  
+                                                    new Telegram.Bot.Types.ReplyMarkups.KeyboardButton("Назад"),                                                 },
                                             },
                                         ResizeKeyboard = true
                                     };
@@ -243,7 +243,7 @@ namespace Server
             for (int i = 0; i < userModel.Models.Count; i++)
             {
                 await bot.SendTextMessageAsync(userModel.ChatId, " " +
-                userModel.Models[i].product_name + "\n ------ \n Себестоимость - "
+                userModel.Models[i].product_name + "\n ------ \n Цена продукта - "
                 + userModel.Models[i].product_price + " коп \n Кол-во проданных - "
                 + userModel.Models[i].num + " ед.\n Выручка - "
                 + userModel.Models[i].product_profit + " коп\n ");
@@ -252,61 +252,7 @@ namespace Server
 
         void FillMockSelection()
         {
-            // var product1 = new Product();
-            // product1.product_price = 1343;
-            // product1.num = 23;
-            // product1.product_name = "Kofe";
-            // product1.product_profit = 1230000;
-            // var product2 = new Product();
-            // product2.product_price = 21343;
-            // product2.num = 234;
-            // product2.product_name = "Vodka";
-            // product2.product_profit = 234100;
-            // var product3 = new Product();
-            // product3.product_price = 21343;
-            // product3.num = 234;
-            // product3.product_name = "Pirog";
-            // product3.product_profit = 234120;
-            // var product4 = new Product();
-            // product4.product_price = 21343;
-            // product4.num = 234;
-            // product4.product_name = "Kulish";
-            // product4.product_profit = 2341230;
-
             models = GetProductsForBot();
-
-            // models.Add(product1);
-            // models.Add(product2);
-            // models.Add(product3);
-            // models.Add(product4);
-
-            // var selection = new User();
-            // selection.Status = UserStatus.InMenu;
-            // selection.ChatId = 341195271;
-            // selection.Hour = 21;
-            // selection.Minutes = 00;
-            // selection.Models.Add(product1);
-            // selection.Models.Add(product2);
-
-            // var selection1 = new User();
-            // selection1.Status = UserStatus.InMenu;
-            // selection1.ChatId = 555088775;
-            // selection1.Hour = 21;
-            // selection1.Minutes = 00;
-            // selection1.Models.Add(product1);
-            // selection1.Models.Add(product2);
-
-            // var selection2 = new User();
-            // selection2.Status = UserStatus.InMenu;
-            // selection2.ChatId = 352478805;
-            // selection2.Hour = 21;
-            // selection2.Minutes = 00;
-            // selection2.Models.Add(product1);
-            // selection2.Models.Add(product2);
-
-            // mockSelection.Add(selection);
-            // mockSelection.Add(selection1);
-            // mockSelection.Add(selection2);
         }
 
         User CreateNewUser(long chatId)
@@ -376,7 +322,7 @@ namespace Server
 
         async void SendErrorMessage(long chatId)
         {
-            await bot.SendTextMessageAsync(chatId, "Неправельно введены данные",
+            await bot.SendTextMessageAsync(chatId, "Неправильно введены данные",
                 Telegram.Bot.Types.Enums.ParseMode.Default);
         }
 
@@ -401,22 +347,28 @@ namespace Server
         {
             var products = GetFromPoster.GetFromPoster.GetProductsIdNames();
             var productsRes = products.Result.Distinct().ToList();
+            Console.WriteLine(productsRes.Count);
             List<Product> final = new List<Product>();
             for (int i = 0; i < productsRes.Count; i++)
             {
-                try
-                {
+                // try
+                // {
                     var dayProd = GetFromPoster.GetFromPoster.GetProductsNameId(productsRes[i].product_id).Result;
-                    if (dayProd.num != 0)
+                    if (dayProd.product_id!=0)
                     {
-                        dayProd.product_name = productsRes[i].product_name;
-                        final.Add(dayProd);
+                        Console.WriteLine(i);
+                        // if (dayProd.num != 0)
+                        // {
+                            dayProd.product_name = productsRes[i].product_name;
+                            final.Add(dayProd);
+                        // }
                     }
-                }
-                catch
-                {
 
-                } 
+                // }
+                // catch
+                // {
+
+                // } 
             }
             return final;
         }
